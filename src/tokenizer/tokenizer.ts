@@ -1,6 +1,7 @@
 import { ArabicTokenizer } from "./tokenizers/ArabicTokenizer";
 import { DefaultTokenizer } from "./tokenizers/DefaultTokenizer";
 import { JapaneseTokenizer } from "./tokenizers/JapaneseTokenizer";
+import { ChineseTokenizer } from "./tokenizers/ChineseTokenizer";
 import { TokenizeStrategy } from "./TokenizeStrategy";
 
 export interface Tokenizer {
@@ -17,6 +18,8 @@ export function createTokenizer(strategy: TokenizeStrategy): Tokenizer {
       return new ArabicTokenizer();
     case "japanese":
       return new JapaneseTokenizer();
+    case "chinese":
+      return new ChineseTokenizer();
     default:
       throw new Error(`Unexpected strategy name: ${strategy}`);
   }

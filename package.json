@@ -23,5 +23,8 @@
   },
   "volta": {
     "node": "16.13.0"
+  },
+  "dependencies": {
+    "nodejieba": "^2.5.2"
   }
 }
