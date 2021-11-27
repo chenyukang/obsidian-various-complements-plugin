@@ -1,13 +1,17 @@
 import { TRIM_CHAR_PATTERN } from "./DefaultTokenizer";
 import { Tokenizer } from "../tokenizer";
+import ChTokenizer from "../../external/chinese-tokenizer";
 // @ts-ignore
-const nodejieba = require("nodejieba");
+
+const segmenter = new ChTokenizer();
 
 function pickTokensAsChinese(content: string, trimPattern: RegExp): string[] {
-  return content
+  let res = content
     .split(trimPattern)
     .filter((x) => x !== "")
-    .flatMap<string>((x) => nodejieba.cut(x));
+    .flatMap<string>((x) => segmenter.load(x));
+    console.log("res: ", res);
+    return res;
 }
 
 /**
@@ -23,6 +27,14 @@ export class ChineseTokenizer implements Tokenizer {
   }
 
   shouldIgnore(str: string): boolean {
-    return Boolean(str.match(/^[ａ-ｚＡ-Z]*$/));
+    return false;
   }
+
+  /* shouldIgnore(str: string): boolean {
+    return Boolean(str.match(/^[ａ-ｚＡ-Z。、 ]*$/));
+  }
+ */
+  /* shouldIgnore(str: string): boolean {
+    return Boolean(str.match(/^[ぁ-んａ-ｚＡ-Ｚ。、ー　]*$/));
+  } */
 }
