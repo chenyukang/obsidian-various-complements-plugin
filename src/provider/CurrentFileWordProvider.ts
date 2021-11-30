@@ -35,7 +35,7 @@ export class CurrentFileWordProvider {
 
     const content = await this.app.vault.cachedRead(file);
     this.words = uniq(this.tokenizer.tokenize(content))
-      .filter((x) => x !== currentToken)
+      .filter((x) => x !== currentToken && x.match(/^[A-Za-z0-9_]+$/) !== null && x.length >= 3 )
       .map((x) => ({
         value: x,
       }));
